@@ -1,6 +1,6 @@
 module HealthMonitor
   class Configuration
-    PROVIDERS = %i[cache database redis resque sidekiq].freeze
+    PROVIDERS = %i[cache database redis resque sidekiq email].freeze
 
     DEFAULT_APP_NAME = "SiliconJungles"
 

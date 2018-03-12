@@ -10,7 +10,6 @@ module Providers
   end
 
   def stub_database_failure
-    # allow(ActiveRecord::Migrator).to receive(:current_version).and_raise(Exception)
     allow(ActiveRecord::Base).to receive(:connected?).and_return(false)
   end
 
@@ -48,5 +47,13 @@ module Providers
 
   def stub_sidekiq_redis_failure
     allow(Sidekiq).to receive(:redis).and_raise(Redis::CannotConnectError)
+  end
+
+  def stub_mailgun_failure
+    allow_any_instance_of(Mailgun::Client).to receive(:get).and_raise(Mailgun::CommunicationError)
+  end
+
+  def stub_mailgun
+    allow_any_instance_of(Mailgun::Client).to receive(:get).and_return(true)
   end
 end
