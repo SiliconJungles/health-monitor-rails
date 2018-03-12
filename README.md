@@ -123,6 +123,16 @@ The following services are currently supported:
 
 ## Configuration
 
+### Adding AppName
+
+The app name is `SiliconJungles` by default. You can change to your app name.
+
+```ruby
+HealthMonitor.configure do |config|
+  config.app_name = "YOUR_APP_NAME" # Default is SiliconJungles
+end
+```
+
 ### Adding Providers
 By default, only the database check is enabled. You can add more service providers by explicitly enabling them via an initializer:
 

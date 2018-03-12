@@ -2,11 +2,14 @@ module HealthMonitor
   class Configuration
     PROVIDERS = %i[cache database redis resque sidekiq].freeze
 
-    attr_accessor :error_callback, :basic_auth_credentials, :environment_variables
+    DEFAULT_APP_NAME = "SiliconJungles"
+
+    attr_accessor :error_callback, :basic_auth_credentials, :environment_variables, :app_name
     attr_reader :providers
 
     def initialize
       database
+      @app_name = DEFAULT_APP_NAME
     end
 
     def no_database

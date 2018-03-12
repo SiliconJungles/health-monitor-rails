@@ -7,9 +7,9 @@ module HealthMonitor
     class Database < Base
       def check!
         # Check connection to the DB:
-        ActiveRecord::Migrator.current_version
-      rescue Exception => e
-        raise DatabaseException.new(e.message)
+        ActiveRecord::Base.establish_connection # Establishes connection
+        ActiveRecord::Base.connection # Calls connection object
+        raise DatabaseException.new("Your database is not connected") unless ActiveRecord::Base.connected?
       end
     end
   end

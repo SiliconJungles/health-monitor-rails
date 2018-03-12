@@ -186,7 +186,7 @@ describe HealthMonitor do
             results: [
               {
                 name: 'Database',
-                message: 'Exception',
+                message: 'Your database is not connected',
                 status: 'ERROR'
               },
               {
@@ -229,7 +229,7 @@ describe HealthMonitor do
           results: [
             {
               name: 'Database',
-              message: 'Exception',
+              message: 'Your database is not connected',
               status: 'ERROR'
             }
           ],

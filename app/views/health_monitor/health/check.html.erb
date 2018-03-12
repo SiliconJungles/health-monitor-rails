@@ -61,7 +61,7 @@
 <body>
   <div class="container">
     <div class="statuses">
-      <h1>Status Page</h1>
+      <h1><%= @app_name %> Status Page</h1>
       <% @statuses[:results].each do |status| %>
       <div class="status status-<%= status[:status].downcase %>">
         <div class="status-heading">

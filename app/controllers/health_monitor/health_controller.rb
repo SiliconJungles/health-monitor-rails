@@ -10,6 +10,7 @@ module HealthMonitor
 
     def check
       @statuses = statuses
+      @app_name = HealthMonitor.configuration.app_name
 
       respond_to do |format|
         format.html

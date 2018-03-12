@@ -148,7 +148,7 @@ describe HealthMonitor::HealthController, type: :controller do
             'results' => [
               {
                 'name' => 'Database',
-                'message' => 'Exception',
+                'message' => 'Your database is not connected',
                 'status' => 'ERROR'
               }
             ],
@@ -194,7 +194,7 @@ describe HealthMonitor::HealthController, type: :controller do
             'results' => [
               {
                 'name' => 'Database',
-                'message' => 'Exception',
+                'message' => 'Your database is not connected',
                 'status' => 'ERROR'
               }
             ],

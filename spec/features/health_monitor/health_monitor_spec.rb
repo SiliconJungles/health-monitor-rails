@@ -17,7 +17,7 @@ describe 'Health Monitor' do
       visit '/check'
       expect(page).to have_css('span', class: 'name', text: 'Database')
       expect(page).to have_css('span', class: 'state', text: 'ERROR')
-      expect(page).to have_css('div', class: 'message', text: 'Exception')
+      expect(page).to have_css('div', class: 'message', text: 'Your database is not connected')
     end
   end
 end

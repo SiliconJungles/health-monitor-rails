@@ -7,6 +7,7 @@ describe HealthMonitor::Configuration do
     it { expect(subject.providers).to eq(default_configuration) }
     it { expect(subject.error_callback).to be_nil }
     it { expect(subject.basic_auth_credentials).to be_nil }
+    it { expect(subject.app_name).to eq("SiliconJungles") }
   end
 
   describe 'providers' do

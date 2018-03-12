@@ -10,7 +10,8 @@ module Providers
   end
 
   def stub_database_failure
-    allow(ActiveRecord::Migrator).to receive(:current_version).and_raise(Exception)
+    # allow(ActiveRecord::Migrator).to receive(:current_version).and_raise(Exception)
+    allow(ActiveRecord::Base).to receive(:connected?).and_return(false)
   end
 
   def stub_redis_failure
