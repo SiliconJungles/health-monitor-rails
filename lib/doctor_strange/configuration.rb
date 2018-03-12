@@ -2,7 +2,7 @@ module DoctorStrange
   class Configuration
     PROVIDERS = %i[cache database redis resque sidekiq email payment].freeze
 
-    DEFAULT_APP_NAME = "SiliconJungles"
+    DEFAULT_APP_NAME = "SiliconJungles".freeze
 
     attr_accessor :error_callback, :basic_auth_credentials, :environment_variables, :app_name
     attr_reader :providers
@@ -26,7 +26,7 @@ module DoctorStrange
 
     def add_custom_provider(custom_provider_class)
       unless custom_provider_class < DoctorStrange::Providers::Base
-        raise ArgumentError.new 'custom provider class must implement '\
+        raise ArgumentError, 'custom provider class must implement '\
           'DoctorStrange::Providers::Base'
       end
 
@@ -35,10 +35,10 @@ module DoctorStrange
 
     private
 
-    def add_provider(provider_class)
-      (@providers ||= Set.new) << provider_class
+      def add_provider(provider_class)
+        (@providers ||= Set.new) << provider_class
 
-      provider_class
-    end
+        provider_class
+      end
   end
 end

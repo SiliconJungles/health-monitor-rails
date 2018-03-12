@@ -25,23 +25,23 @@ module DoctorStrange
 
     private
 
-    def statuses
-      res = DoctorStrange.check(request: request)
-      res.merge(env_vars)
-    end
-
-    def env_vars
-      v = DoctorStrange.configuration.environment_variables || {}
-      v.empty? ? {} : { environment_variables: v }
-    end
-
-    def authenticate_with_basic_auth
-      return true unless DoctorStrange.configuration.basic_auth_credentials
-
-      credentials = DoctorStrange.configuration.basic_auth_credentials
-      authenticate_or_request_with_http_basic do |name, password|
-        name == credentials[:username] && password == credentials[:password]
+      def statuses
+        res = DoctorStrange.check(request: request)
+        res.merge(env_vars)
       end
-    end
+
+      def env_vars
+        v = DoctorStrange.configuration.environment_variables || {}
+        v.empty? ? {} : { environment_variables: v }
+      end
+
+      def authenticate_with_basic_auth
+        return true unless DoctorStrange.configuration.basic_auth_credentials
+
+        credentials = DoctorStrange.configuration.basic_auth_credentials
+        authenticate_or_request_with_http_basic do |name, password|
+          name == credentials[:username] && password == credentials[:password]
+        end
+      end
   end
 end

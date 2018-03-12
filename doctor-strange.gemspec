@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'capybara-screenshot'
   s.add_development_dependency 'coveralls'
   s.add_development_dependency 'database_cleaner'
+  s.add_development_dependency 'mailgun-ruby'
   s.add_development_dependency 'pry'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rediska'
@@ -33,7 +34,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'sidekiq', '>= 3.0'
   s.add_development_dependency 'spork'
   s.add_development_dependency 'sqlite3'
-  s.add_development_dependency 'timecop'
-  s.add_development_dependency 'mailgun-ruby'
   s.add_development_dependency 'stripe'
+  s.add_development_dependency 'timecop'
 end

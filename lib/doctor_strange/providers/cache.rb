@@ -12,15 +12,15 @@ module DoctorStrange
         fetched = Rails.cache.read(key)
 
         raise "different values (now: #{time}, fetched: #{fetched})" if fetched != time
-      rescue Exception => e
-        raise CacheException.new(e.message)
+      rescue StandardError => e
+        raise CacheException, e.message
       end
 
       private
 
-      def key
-        @key ||= ['health', request.try(:remote_ip)].join(':')
-      end
+        def key
+          @key ||= ['health', request.try(:remote_ip)].join(':')
+        end
     end
   end
 end

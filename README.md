@@ -1,4 +1,4 @@
-# doctor-strange
+# Doctor Strange
 
 [![Gem Version](https://badge.fury.io/rb/doctor-strange.png)](http://badge.fury.io/rb/doctor-strange)
 [![Build Status](https://travis-ci.org/lbeder/doctor-strange.png)](https://travis-ci.org/lbeder/doctor-strange)
@@ -11,7 +11,7 @@ Monitoring various services (db, cache, sidekiq/resque, email, redis, payment, e
 
 ### HTML Status Page
 
-![alt example](/docs/screenshots/example.png "HTML Status Page")
+![alt example](/docs/screenshots/status-page.png "SiliconJungles Status Page")
 
 ### JSON Response
 

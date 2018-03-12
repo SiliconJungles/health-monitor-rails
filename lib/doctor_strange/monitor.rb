@@ -28,24 +28,24 @@ module DoctorStrange
 
   private
 
-  def provider_result(provider, request)
-    monitor = provider.new(request: request)
-    monitor.check!
+    def provider_result(provider, request)
+      monitor = provider.new(request: request)
+      monitor.check!
 
-    {
-      name: provider.provider_name,
-      message: '',
-      status: STATUSES[:ok]
-    }
-  rescue StandardError => e
-    configuration.error_callback.call(e) if configuration.error_callback
+      {
+        name: provider.provider_name,
+        message: '',
+        status: STATUSES[:ok]
+      }
+    rescue StandardError => e
+      configuration.error_callback.call(e) if configuration.error_callback
 
-    {
-      name: provider.provider_name,
-      message: e.message,
-      status: STATUSES[:error]
-    }
-  end
+      {
+        name: provider.provider_name,
+        message: e.message,
+        status: STATUSES[:error]
+      }
+    end
 end
 
 DoctorStrange.configure

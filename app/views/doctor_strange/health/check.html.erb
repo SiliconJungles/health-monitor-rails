@@ -2,65 +2,40 @@
 <html>
 <head>
   <title><%= @app_name %>Status</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <style type="text/css" media="screen">
-  body {
-    line-height: 2rem;
-    font-family: sans;
-    font-size: 14px;
-    background-color: #f0f0f0;
-    margin: 0;
-    padding: 0;
-    color: #000;
-    text-align: center;
-  }
-
-  a { color: #333; }
-
-  .container {
-    width: 960px;
-    margin: 20px auto;
-    text-align: left;
-  }
-
-  h1 {
-    font-weight: normal;
-    line-height: 2.8rem;
-    font-size: 30px;
-    letter-spacing: -1px;
-    text-align: center;
-    color: #333;
-  }
-
-  .container {
-    width: 960px;
-    margin:40px auto;
-    overflow: hidden;
-  }
-
-  .statuses {
-    background: #FFF;
-    width: 100%;
-    border-radius: 5px;
-  }
-  .statuses h1 { border-radius: 5px 5px 0 0; background: #f9f9f9; padding: 10px; border-bottom: 1px solid #eee;}
-  .statuses .status { font-size: 14px; border-bottom: 1px solid #eee; padding: 15px; }
-  .statuses .status:last-child { border-bottom: 0px; }
-  .statuses .name { font-size: 20px; margin-right: 20px; min-width: 100px; font-weight: bold; color: #555; }
-  .statuses .state { font-size: 14px; float: right; width: 80px; color: #45b81d; }
-  .statuses .message { color: #666; }
-  .statuses .timestamp { width: 130px; color: #999; }
-  .statuses .status-error .state { color: red; }
-
-  .powered { text-align: center; margin-top: 10px; color: #aaa; }
-  .powered a { color: #666; }
-  </style>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="<%= @app_name %> Status">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
 </head>
 
 <body>
   <div class="container">
-    <div class="statuses">
+    <h1 class="text-center"><%= @app_name %> Status Page</h1>
+    <table class="table table-hover table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Service</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @statuses[:results].each_with_index do |status, index| %>
+          <% class_name = status[:status].downcase == 'error' ? 'text-danger' : 'text-success' %>
+          <tr>
+            <th scope="row"><%= index + 1 %></th>
+            <td> <%= status[:name] %></td>
+            <td class="<%= class_name %>">
+              <p><%= status[:status] %></p>
+              <%= status[:message] %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+
+    <!-- <div class="statuses">
       <h1><%= @app_name %> Status Page</h1>
       <% @statuses[:results].each do |status| %>
       <div class="status status-<%= status[:status].downcase %>">
@@ -71,9 +46,9 @@
         <div class="message"><%= status[:message] %></div>
       </div>
       <% end %>
-    </div>
-    <div class="powered">
-      Powered by <a href="https://github.com/SiliconJungles/doctor-strange.git" target="_blank">doctor-strange</a>
+    </div> -->
+    <div class="text-center">
+      Powered by <a href="https://github.com/SiliconJungles/doctor-strange.git" target="_blank">Doctor Strange - SiliconJungles Team</a>
     </div>
   </div>
 </body>

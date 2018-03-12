@@ -7,7 +7,7 @@ module DoctorStrange
 
     class Email < Base
       class Configuration
-        DEFAULT_SERVICE_NAME = "MailGun"
+        DEFAULT_SERVICE_NAME = "MailGun".freeze
 
         attr_accessor :api_key, :domain, :service_name
 
@@ -27,23 +27,23 @@ module DoctorStrange
       def check!
         check_required_values!
         check_communication!
-      rescue Exception => e
-        raise EmailException.new(e.message)
+      rescue StandardError => e
+        raise EmailException, e.message
       end
 
       private
 
-      def check_required_values!
-        raise "The api_key and domain are required" if configuration.api_key.empty? || configuration.domain.empty?
-      end
+        def check_required_values!
+          raise "The api_key and domain are required" if configuration.api_key.empty? || configuration.domain.empty?
+        end
 
-      def check_communication!
-        mg_client = Mailgun::Client.new(configuration.api_key)
-        domainer = Mailgun::Domains.new(mg_client)
-        domainer.list.pluck("name").include? configuration.domain
-      rescue ::Mailgun::CommunicationError => e
-        raise "Cannot communicate to Mailgun"
-      end
+        def check_communication!
+          mg_client = Mailgun::Client.new(configuration.api_key)
+          domainer = Mailgun::Domains.new(mg_client)
+          domainer.list.pluck("name").include? configuration.domain
+        rescue Mailgun::CommunicationError
+          raise "Cannot communicate to Mailgun"
+        end
     end
   end
 end

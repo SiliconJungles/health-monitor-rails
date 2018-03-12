@@ -7,7 +7,7 @@ module DoctorStrange
 
     class Payment < Base
       class Configuration
-        DEFAULT_SERVICE_NAME = "Stripe"
+        DEFAULT_SERVICE_NAME = "Stripe".freeze
 
         attr_accessor :api_key, :service_name
 
@@ -33,16 +33,16 @@ module DoctorStrange
 
       private
 
-      def check_required_values!
-        raise "The api_key is required" if configuration.api_key.empty?
-      end
+        def check_required_values!
+          raise "The api_key is required" if configuration.api_key.empty?
+        end
 
-      def check_communication!
-        Stripe.api_key = configuration.api_key
-        Stripe::Customer.list(limit: 1)
-      rescue ::Stripe::AuthenticationError => e
-        raise "Invalid API Key provided"
-      end
+        def check_communication!
+          Stripe.api_key = configuration.api_key
+          Stripe::Customer.list(limit: 1)
+        rescue Stripe::AuthenticationError
+          raise "Invalid API Key provided"
+        end
     end
   end
 end

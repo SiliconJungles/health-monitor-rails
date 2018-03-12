@@ -1,58 +1,122 @@
-# Custom config for RuboCop static code analysis
-Metrics/LineLength:
-  Max: 120
+AllCops:
+  TargetRubyVersion: 2.4.1
   Exclude:
+    - db/schema.rb
+    - 'vendor/**/*'
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+    - 'bin/**/*'
     - 'spec/**/*'
+    - 'lib/tasks/**/*'
 
-Metrics/MethodLength:
-  Max: 20
-  Exclude:
-    - 'spec/**/*'
+  DisplayCopNames: true
+  DisplayStyleGuide: true
 
-Metrics/AbcSize:
-  Max: 20
-  Exclude:
-    - 'spec/**/*'
+##################### Style ##################################
 
-Metrics/BlockLength:
-  Max: 30
-  Exclude:
-    - 'spec/**/*'
-
-Style/SignalException:
-  EnforcedStyle: only_raise
-
-Style/RaiseArgs:
+Style/AsciiComments:
   Enabled: false
 
-Layout/AlignParameters:
-  EnforcedStyle: with_fixed_indentation
-
-Layout/AlignHash:
+Style/ExpandPathArguments:
   Enabled: false
-
-Layout/AlignArray:
-  Enabled: false
-
-Layout/MultilineOperationIndentation:
-  EnforcedStyle: indented
-
-Layout/IndentHash:
-  EnforcedStyle: consistent
-
-Style/Documentation:
-  Enabled: false
-
-Style/BlockDelimiters:
-  Exclude:
-    - 'spec/**/*'
 
 Style/ModuleFunction:
   Enabled: false
 
-Style/ExtendSelf:
+Style/RaiseArgs:
   Enabled: false
 
 Lint/RescueException:
+  Enabled: false
+
+Style/SafeNavigation:
+  Enabled: false
+
+Naming/MemoizedInstanceVariableName:
+  Enabled: false
+
+Style/EmptyElse:
+  EnforcedStyle: empty
+
+Style/GuardClause:
+  MinBodyLength: 5
+
+Style/Documentation:
+  Enabled: false
+
+Layout/IndentationConsistency:
+  EnforcedStyle: rails
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/Lambda:
+  Enabled: false
+
+Style/AndOr:
+  Enabled: false
+
+Style/WordArray:
+  Enabled: false
+
+Style/NumericLiterals:
+  MinDigits: 7
+
+Style/RedundantSelf:
+  Enabled: false
+
+Layout/MultilineOperationIndentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/StringLiterals:
+  Enabled: false
+
+Layout/FirstParameterIndentation:
+  Enabled: false
+
+Layout/ClosingParenthesisIndentation:
+  Enabled: false
+
+##################### Lint ##################################
+
+Lint/UnderscorePrefixedVariableName:
+  Enabled: false
+
+Lint/UnusedMethodArgument:
+  Enabled: false
+
+##################### Metrics ##################################
+Metrics/AbcSize:
+  Max: 45
+
+Metrics/ClassLength:
+  Max: 200
+
+Metrics/CyclomaticComplexity:
+  Max: 10
+
+Metrics/LineLength:
+  Max: 160
   Exclude:
-    - 'lib/doctor_strange/providers/**/*'
+    - "db/migrate/*.rb"
+    - "app/services/ticket_service.rb"
+
+Metrics/MethodLength:
+  Max: 30
+  Exclude:
+    - "db/migrate/*.rb"
+
+Metrics/PerceivedComplexity:
+  Max: 8
+
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*"
+    - doctor-strange.gemspec
+
+Performance/RedundantMatch:
+  Enabled: false
