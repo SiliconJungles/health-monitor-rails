@@ -1,9 +1,6 @@
 # Doctor Strange
 
-[![Gem Version](https://badge.fury.io/rb/doctor-strange.png)](http://badge.fury.io/rb/doctor-strange)
-[![Build Status](https://travis-ci.org/lbeder/doctor-strange.png)](https://travis-ci.org/lbeder/doctor-strange)
-[![Dependency Status](https://gemnasium.com/lbeder/doctor-strange.png)](https://gemnasium.com/lbeder/doctor-strange)
-[![Coverage Status](https://coveralls.io/repos/lbeder/doctor-strange/badge.png)](https://coveralls.io/r/lbeder/doctor-strange)
+[![BuildStatus](https://circleci.com/gh/SiliconJungles/doctor-strange.svg?style=svg)](https://circleci.com/gh/SiliconJungles/doctor-strange)
 
 Monitoring various services (db, cache, sidekiq/resque, email, redis, payment, etc).
 
