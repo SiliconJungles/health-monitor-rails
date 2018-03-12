@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe HealthMonitor::Providers::Cache do
+describe DoctorStrange::Providers::Cache do
   subject { described_class.new(request: test_request) }
 
   describe '#provider_name' do
@@ -22,7 +22,7 @@ describe HealthMonitor::Providers::Cache do
       it 'fails check!' do
         expect {
           subject.check!
-        }.to raise_error(HealthMonitor::Providers::CacheException)
+        }.to raise_error(DoctorStrange::Providers::CacheException)
       end
     end
   end

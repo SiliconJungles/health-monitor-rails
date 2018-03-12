@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe HealthMonitor::Providers::Email do
-  describe HealthMonitor::Providers::Email::Configuration do
+describe DoctorStrange::Providers::Email do
+  describe DoctorStrange::Providers::Email::Configuration do
     describe 'defaults' do
-      it { expect(described_class.new.service_name).to eq(HealthMonitor::Providers::Email::Configuration::DEFAULT_SERVICE_NAME) }
+      it { expect(described_class.new.service_name).to eq(DoctorStrange::Providers::Email::Configuration::DEFAULT_SERVICE_NAME) }
     end
   end
 
@@ -41,7 +41,7 @@ describe HealthMonitor::Providers::Email do
       it 'fails check!' do
         expect {
           subject.check!
-        }.to raise_error(HealthMonitor::Providers::EmailException, 'Cannot communicate to Mailgun')
+        }.to raise_error(DoctorStrange::Providers::EmailException, 'Cannot communicate to Mailgun')
       end
     end
   end
@@ -81,7 +81,7 @@ describe HealthMonitor::Providers::Email do
       end
       expect {
         subject.check!
-      }.to raise_error(HealthMonitor::Providers::EmailException, 'The api_key and domain are required')
+      }.to raise_error(DoctorStrange::Providers::EmailException, 'The api_key and domain are required')
     end
   end
 end

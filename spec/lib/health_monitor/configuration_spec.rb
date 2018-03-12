@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe HealthMonitor::Configuration do
-  let(:default_configuration) { Set.new([HealthMonitor::Providers::Database]) }
+describe DoctorStrange::Configuration do
+  let(:default_configuration) { Set.new([DoctorStrange::Providers::Database]) }
 
   describe 'defaults' do
     it { expect(subject.providers).to eq(default_configuration) }
@@ -11,11 +11,11 @@ describe HealthMonitor::Configuration do
   end
 
   describe 'providers' do
-    HealthMonitor::Configuration::PROVIDERS.each do |provider_name|
+    DoctorStrange::Configuration::PROVIDERS.each do |provider_name|
       before do
         subject.instance_variable_set('@providers', Set.new)
 
-        stub_const("HealthMonitor::Providers::#{provider_name.capitalize}", Class.new)
+        stub_const("DoctorStrange::Providers::#{provider_name.capitalize}", Class.new)
       end
 
       it "responds to #{provider_name}" do
@@ -25,11 +25,11 @@ describe HealthMonitor::Configuration do
       it "configures #{provider_name}" do
         expect {
           subject.send(provider_name)
-        }.to change { subject.providers }.to(Set.new(["HealthMonitor::Providers::#{provider_name.capitalize}".constantize]))
+        }.to change { subject.providers }.to(Set.new(["DoctorStrange::Providers::#{provider_name.capitalize}".constantize]))
       end
 
       it "returns #{provider_name}'s class" do
-        expect(subject.send(provider_name)).to eq("HealthMonitor::Providers::#{provider_name.capitalize}".constantize)
+        expect(subject.send(provider_name)).to eq("DoctorStrange::Providers::#{provider_name.capitalize}".constantize)
       end
     end
   end
@@ -40,7 +40,7 @@ describe HealthMonitor::Configuration do
     end
 
     context 'inherits' do
-      class CustomProvider < HealthMonitor::Providers::Base
+      class CustomProvider < DoctorStrange::Providers::Base
       end
 
       it 'accepts' do

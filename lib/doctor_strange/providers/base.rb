@@ -1,4 +1,4 @@
-module HealthMonitor
+module DoctorStrange
   module Providers
     class Base
       attr_reader :request

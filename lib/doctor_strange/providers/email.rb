@@ -1,7 +1,7 @@
-require 'health_monitor/providers/base'
+require 'doctor_strange/providers/base'
 require 'mailgun'
 
-module HealthMonitor
+module DoctorStrange
   module Providers
     class EmailException < StandardError; end
 
@@ -20,7 +20,7 @@ module HealthMonitor
         private
 
         def configuration_class
-          ::HealthMonitor::Providers::Email::Configuration
+          ::DoctorStrange::Providers::Email::Configuration
         end
       end
 

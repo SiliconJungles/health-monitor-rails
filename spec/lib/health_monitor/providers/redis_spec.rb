@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe HealthMonitor::Providers::Redis do
-  describe HealthMonitor::Providers::Redis::Configuration do
+describe DoctorStrange::Providers::Redis do
+  describe DoctorStrange::Providers::Redis::Configuration do
     describe 'defaults' do
-      it { expect(described_class.new.url).to eq(HealthMonitor::Providers::Redis::Configuration::DEFAULT_URL) }
+      it { expect(described_class.new.url).to eq(DoctorStrange::Providers::Redis::Configuration::DEFAULT_URL) }
     end
   end
 
@@ -29,7 +29,7 @@ describe HealthMonitor::Providers::Redis do
         it 'fails check!' do
           expect {
             subject.check!
-          }.to raise_error(HealthMonitor::Providers::RedisException)
+          }.to raise_error(DoctorStrange::Providers::RedisException)
         end
       end
     end
@@ -53,7 +53,7 @@ describe HealthMonitor::Providers::Redis do
         it 'fails check!' do
           expect {
             subject.check!
-          }.to raise_error(HealthMonitor::Providers::RedisException, '954Mb memory using is higher than 100Mb maximum expected')
+          }.to raise_error(DoctorStrange::Providers::RedisException, '954Mb memory using is higher than 100Mb maximum expected')
         end
       end
     end
@@ -107,7 +107,7 @@ describe HealthMonitor::Providers::Redis do
             config.url = url
           end
 
-          HealthMonitor::Providers::Sidekiq.configure do |config|
+          DoctorStrange::Providers::Sidekiq.configure do |config|
             config.latency = 123
           end
         }.to change { described_class.new.configuration.url }.to(url)
@@ -141,7 +141,7 @@ describe HealthMonitor::Providers::Redis do
             config.max_used_memory = max_used_memory
           end
 
-          HealthMonitor::Providers::Sidekiq.configure do |config|
+          DoctorStrange::Providers::Sidekiq.configure do |config|
             config.latency = 123
           end
         }.to change { described_class.new.configuration.max_used_memory }.to(max_used_memory)

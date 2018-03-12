@@ -1,13 +1,13 @@
-# health-monitor-rails
+# doctor-strange
 
-[![Gem Version](https://badge.fury.io/rb/health-monitor-rails.png)](http://badge.fury.io/rb/health-monitor-rails)
-[![Build Status](https://travis-ci.org/lbeder/health-monitor-rails.png)](https://travis-ci.org/lbeder/health-monitor-rails)
-[![Dependency Status](https://gemnasium.com/lbeder/health-monitor-rails.png)](https://gemnasium.com/lbeder/health-monitor-rails)
-[![Coverage Status](https://coveralls.io/repos/lbeder/health-monitor-rails/badge.png)](https://coveralls.io/r/lbeder/health-monitor-rails)
+[![Gem Version](https://badge.fury.io/rb/doctor-strange.png)](http://badge.fury.io/rb/doctor-strange)
+[![Build Status](https://travis-ci.org/lbeder/doctor-strange.png)](https://travis-ci.org/lbeder/doctor-strange)
+[![Dependency Status](https://gemnasium.com/lbeder/doctor-strange.png)](https://gemnasium.com/lbeder/doctor-strange)
+[![Coverage Status](https://coveralls.io/repos/lbeder/doctor-strange/badge.png)](https://coveralls.io/r/lbeder/doctor-strange)
 
-This is a health monitoring Rails mountable plug-in, which checks various services (db, cache, sidekiq, redis, etc.).
+This is a Doctor Strangeing Rails mountable plug-in, which checks various services (db, cache, sidekiq, redis, etc.).
 
-Mounting this gem will add a '/check' route to your application, which can be used for health monitoring the application and its various services. The method will return an appropriate HTTP status as well as an HTML/JSON/XML response representing the state of each provider.
+Mounting this gem will add a '/check' route to your application, which can be used for Doctor Strangeing the application and its various services. The method will return an appropriate HTTP status as well as an HTML/JSON/XML response representing the state of each provider.
 
 ## Examples
 
@@ -88,10 +88,10 @@ Mounting this gem will add a '/check' route to your application, which can be us
 
 ## Setup
 
-If you are using bundler add health-monitor-rails to your Gemfile:
+If you are using bundler add doctor-strange to your Gemfile:
 
 ```ruby
-gem 'health-monitor-rails'
+gem 'doctor-strange'
 ```
 
 Then run:
@@ -103,14 +103,14 @@ $ bundle install
 Otherwise install the gem:
 
 ```bash
-$ gem install health-monitor-rails
+$ gem install doctor-strange
 ```
 
 ## Usage
 You can mount this inside your app routes by adding this to config/routes.rb:
 
 ```ruby
-mount HealthMonitor::Engine, at: '/'
+mount DoctorStrange::Engine, at: '/'
 ```
 
 ## Supported Service Providers
@@ -128,7 +128,7 @@ The following services are currently supported:
 The app name is `SiliconJungles` by default. You can change to your app name.
 
 ```ruby
-HealthMonitor.configure do |config|
+DoctorStrange.configure do |config|
   config.app_name = "YOUR_APP_NAME" # Default is SiliconJungles
 end
 ```
@@ -137,7 +137,7 @@ end
 By default, only the database check is enabled. You can add more service providers by explicitly enabling them via an initializer:
 
 ```ruby
-HealthMonitor.configure do |config|
+DoctorStrange.configure do |config|
   config.cache
   config.redis
   config.sidekiq
@@ -152,7 +152,7 @@ We believe that having the database check enabled by default is very important, 
 (e.g., if you use a database that isn't covered by the check) - you can do that by calling the `no_database` method:
 
 ```ruby
-HealthMonitor.configure do |config|
+DoctorStrange.configure do |config|
   config.no_database
 end
 ```
@@ -163,7 +163,7 @@ Some of the providers can also accept additional configuration:
 
 ```ruby
 # Sidekiq
-HealthMonitor.configure do |config|
+DoctorStrange.configure do |config|
   config.sidekiq.configure do |sidekiq_config|
     sidekiq_config.latency = 3.hours
     sidekiq_config.queue_size = 50
@@ -173,7 +173,7 @@ end
 
 ```ruby
 # Redis
-HealthMonitor.configure do |config|
+DoctorStrange.configure do |config|
   config.redis.configure do |redis_config|
     redis_config.connection = Redis.current # use your custom redis connection
     redis_config.url = 'redis://user:pass@example.redis.com:90210/' # or URL
@@ -184,7 +184,7 @@ end
 
 ```ruby
 # Email - MailGun by default
-HealthMonitor.configure do |config|
+DoctorStrange.configure do |config|
   config.email.configure do |email_config|
     email_config.api_key = "abcd"
     email_config.domain = "foo.bar"
@@ -217,10 +217,10 @@ It's also possible to add custom health check providers suited for your needs (o
 
 In order to add a custom provider, you'd need to:
 
-* Implement the `HealthMonitor::Providers::Base` class and its `check!` method (a check is considered as failed if it raises an exception):
+* Implement the `DoctorStrange::Providers::Base` class and its `check!` method (a check is considered as failed if it raises an exception):
 
 ```ruby
-class CustomProvider < HealthMonitor::Providers::Base
+class CustomProvider < DoctorStrange::Providers::Base
   def check!
     raise 'Oh oh!'
   end
@@ -229,7 +229,7 @@ end
 * Add its class to the configuration:
 
 ```ruby
-HealthMonitor.configure do |config|
+DoctorStrange.configure do |config|
   config.add_custom_provider(CustomProvider)
 end
 ```
@@ -238,7 +238,7 @@ end
 If you need to perform any additional error handling (for example, for additional error reporting), you can configure a custom error callback:
 
 ```ruby
-HealthMonitor.configure do |config|
+DoctorStrange.configure do |config|
   config.error_callback = proc do |e|
     logger.error "Health check failed with: #{e.message}"
 
@@ -251,7 +251,7 @@ end
 By default, the `/check` endpoint is not authenticated and is available to any user. You can authenticate using HTTP Basic Auth by providing authentication credentials:
 
 ```ruby
-HealthMonitor.configure do |config|
+DoctorStrange.configure do |config|
   config.basic_auth_credentials = {
     username: 'SECRET_NAME',
     password: 'Shhhhh!!!'
@@ -263,7 +263,7 @@ end
 By default, environment variables is `nil`, so if you'd want to include additional parameters in the results JSON, all you need is to provide a `Hash` with your custom environment variables:
 
 ```ruby
-HealthMonitor.configure do |config|
+DoctorStrange.configure do |config|
   config.environment_variables = {
     build_number: 'BUILD_NUMBER',
     git_sha: 'GIT_SHA'

@@ -3,7 +3,7 @@
 # root of your application.
 
 ENGINE_ROOT = File.expand_path('../..', __FILE__)
-ENGINE_PATH = File.expand_path('../../lib/health_monitor/engine', __FILE__)
+ENGINE_PATH = File.expand_path('../../lib/doctor_strange/engine', __FILE__)
 
 require 'rails/all'
 require 'rails/engine/commands'

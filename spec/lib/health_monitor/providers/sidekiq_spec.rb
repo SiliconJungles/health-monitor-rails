@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe HealthMonitor::Providers::Sidekiq do
-  describe HealthMonitor::Providers::Sidekiq::Configuration do
+describe DoctorStrange::Providers::Sidekiq do
+  describe DoctorStrange::Providers::Sidekiq::Configuration do
     describe 'defaults' do
-      it { expect(described_class.new.latency).to eq(HealthMonitor::Providers::Sidekiq::Configuration::DEFAULT_LATENCY_TIMEOUT) }
+      it { expect(described_class.new.latency).to eq(DoctorStrange::Providers::Sidekiq::Configuration::DEFAULT_LATENCY_TIMEOUT) }
     end
   end
 
@@ -45,7 +45,7 @@ describe HealthMonitor::Providers::Sidekiq do
         it 'fails check!' do
           expect {
             subject.check!
-          }.to raise_error(HealthMonitor::Providers::SidekiqException)
+          }.to raise_error(DoctorStrange::Providers::SidekiqException)
         end
       end
 
@@ -57,7 +57,7 @@ describe HealthMonitor::Providers::Sidekiq do
         it 'fails check!' do
           expect {
             subject.check!
-          }.to raise_error(HealthMonitor::Providers::SidekiqException)
+          }.to raise_error(DoctorStrange::Providers::SidekiqException)
         end
       end
 
@@ -69,7 +69,7 @@ describe HealthMonitor::Providers::Sidekiq do
         it 'fails check!' do
           expect {
             subject.check!
-          }.to raise_error(HealthMonitor::Providers::SidekiqException)
+          }.to raise_error(DoctorStrange::Providers::SidekiqException)
         end
       end
 
@@ -81,7 +81,7 @@ describe HealthMonitor::Providers::Sidekiq do
         it 'fails check!' do
           expect {
             subject.check!
-          }.to raise_error(HealthMonitor::Providers::SidekiqException)
+          }.to raise_error(DoctorStrange::Providers::SidekiqException)
         end
       end
 
@@ -93,7 +93,7 @@ describe HealthMonitor::Providers::Sidekiq do
         it 'fails check!' do
           expect {
             subject.check!
-          }.to raise_error(HealthMonitor::Providers::SidekiqException)
+          }.to raise_error(DoctorStrange::Providers::SidekiqException)
         end
       end
     end

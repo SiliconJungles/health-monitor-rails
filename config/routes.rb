@@ -1,4 +1,4 @@
-HealthMonitor::Engine.routes.draw do
+DoctorStrange::Engine.routes.draw do
   controller :health do
     get :check
   end

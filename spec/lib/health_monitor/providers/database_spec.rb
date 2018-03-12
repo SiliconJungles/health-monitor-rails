@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe HealthMonitor::Providers::Database do
+describe DoctorStrange::Providers::Database do
   subject { described_class.new(request: test_request) }
 
   describe '#provider_name' do
@@ -22,7 +22,7 @@ describe HealthMonitor::Providers::Database do
       it 'fails check!' do
         expect {
           subject.check!
-        }.to raise_error(HealthMonitor::Providers::DatabaseException)
+        }.to raise_error(DoctorStrange::Providers::DatabaseException)
       end
     end
   end

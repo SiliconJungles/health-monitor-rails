@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  mount HealthMonitor::Engine => '/health'
+  mount DoctorStrange::Engine => '/health'
 end

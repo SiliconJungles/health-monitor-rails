@@ -1,9 +1,9 @@
 require 'spec_helper'
 require 'timecop'
-require './app/controllers/health_monitor/health_controller'
+require './app/controllers/doctor_strange/health_controller'
 
-describe HealthMonitor::HealthController, type: :controller do
-  routes { HealthMonitor::Engine.routes }
+describe DoctorStrange::HealthController, type: :controller do
+  routes { DoctorStrange::Engine.routes }
 
   let(:time) { Time.local(1990) }
 
@@ -20,7 +20,7 @@ describe HealthMonitor::HealthController, type: :controller do
     let(:password) { 'password' }
 
     before do
-      HealthMonitor.configure do |config|
+      DoctorStrange.configure do |config|
         config.basic_auth_credentials = { username: username, password: password }
         config.environment_variables = nil
       end
@@ -73,7 +73,7 @@ describe HealthMonitor::HealthController, type: :controller do
     let(:environment_variables) { { build_number: '12', git_sha: 'example_sha' } }
 
     before do
-      HealthMonitor.configure do |config|
+      DoctorStrange.configure do |config|
         config.basic_auth_credentials = nil
         config.environment_variables = environment_variables
       end
@@ -107,7 +107,7 @@ describe HealthMonitor::HealthController, type: :controller do
 
   describe '#check' do
     before do
-      HealthMonitor.configure do |config|
+      DoctorStrange.configure do |config|
         config.basic_auth_credentials = nil
         config.environment_variables = nil
       end

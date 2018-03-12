@@ -1,4 +1,4 @@
-module HealthMonitor
+module DoctorStrange
   class HealthController < ActionController::Base
     protect_from_forgery with: :exception
 
@@ -10,7 +10,7 @@ module HealthMonitor
 
     def check
       @statuses = statuses
-      @app_name = HealthMonitor.configuration.app_name
+      @app_name = DoctorStrange.configuration.app_name
 
       respond_to do |format|
         format.html
@@ -26,19 +26,19 @@ module HealthMonitor
     private
 
     def statuses
-      res = HealthMonitor.check(request: request)
+      res = DoctorStrange.check(request: request)
       res.merge(env_vars)
     end
 
     def env_vars
-      v = HealthMonitor.configuration.environment_variables || {}
+      v = DoctorStrange.configuration.environment_variables || {}
       v.empty? ? {} : { environment_variables: v }
     end
 
     def authenticate_with_basic_auth
-      return true unless HealthMonitor.configuration.basic_auth_credentials
+      return true unless DoctorStrange.configuration.basic_auth_credentials
 
-      credentials = HealthMonitor.configuration.basic_auth_credentials
+      credentials = DoctorStrange.configuration.basic_auth_credentials
       authenticate_or_request_with_http_basic do |name, password|
         name == credentials[:username] && password == credentials[:password]
       end

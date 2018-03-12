@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe HealthMonitor do
+describe DoctorStrange do
   let(:time) { Time.local(1990) }
 
   before do
-    HealthMonitor.configuration = HealthMonitor::Configuration.new
+    DoctorStrange.configuration = DoctorStrange::Configuration.new
 
     Timecop.freeze(time)
   end
@@ -20,8 +20,8 @@ describe HealthMonitor do
       it 'configures a single provider' do
         expect {
           subject.configure(&:redis)
-        }.to change { HealthMonitor.configuration.providers }
-          .to(Set.new([HealthMonitor::Providers::Database, HealthMonitor::Providers::Redis]))
+        }.to change { DoctorStrange.configuration.providers }
+          .to(Set.new([DoctorStrange::Providers::Database, DoctorStrange::Providers::Redis]))
       end
 
       it 'configures a single provider with custom configuration' do
@@ -29,8 +29,8 @@ describe HealthMonitor do
           subject.configure(&:redis).configure do |redis_config|
             redis_config.url = 'redis://user:pass@example.redis.com:90210/'
           end
-        }.to change { HealthMonitor.configuration.providers }
-          .to(Set.new([HealthMonitor::Providers::Database, HealthMonitor::Providers::Redis]))
+        }.to change { DoctorStrange.configuration.providers }
+          .to(Set.new([DoctorStrange::Providers::Database, DoctorStrange::Providers::Redis]))
       end
 
       it 'configures a multiple providers' do
@@ -39,16 +39,16 @@ describe HealthMonitor do
             config.redis
             config.sidekiq
           end
-        }.to change { HealthMonitor.configuration.providers }
-          .to(Set.new([HealthMonitor::Providers::Database, HealthMonitor::Providers::Redis,
-            HealthMonitor::Providers::Sidekiq]))
+        }.to change { DoctorStrange.configuration.providers }
+          .to(Set.new([DoctorStrange::Providers::Database, DoctorStrange::Providers::Redis,
+            DoctorStrange::Providers::Sidekiq]))
       end
 
       it 'appends new providers' do
         expect {
           subject.configure(&:resque)
-        }.to change { HealthMonitor.configuration.providers }.to(Set.new([HealthMonitor::Providers::Database,
-          HealthMonitor::Providers::Resque]))
+        }.to change { DoctorStrange.configuration.providers }.to(Set.new([DoctorStrange::Providers::Database,
+          DoctorStrange::Providers::Resque]))
       end
     end
 
@@ -61,7 +61,7 @@ describe HealthMonitor do
           subject.configure do |config|
             config.error_callback = error_callback
           end
-        }.to change { HealthMonitor.configuration.error_callback }.to(error_callback)
+        }.to change { DoctorStrange.configuration.error_callback }.to(error_callback)
       end
     end
 
@@ -76,7 +76,7 @@ describe HealthMonitor do
           subject.configure do |config|
             config.basic_auth_credentials = expected
           end
-        }.to change { HealthMonitor.configuration.basic_auth_credentials }.to(expected)
+        }.to change { DoctorStrange.configuration.basic_auth_credentials }.to(expected)
       end
     end
   end

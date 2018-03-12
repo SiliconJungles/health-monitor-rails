@@ -1,7 +1,7 @@
-require 'health_monitor/providers/base'
+require 'doctor_strange/providers/base'
 require 'resque'
 
-module HealthMonitor
+module DoctorStrange
   module Providers
     class ResqueException < StandardError; end
 

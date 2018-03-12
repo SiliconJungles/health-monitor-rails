@@ -55,4 +55,4 @@ Style/ExtendSelf:
 
 Lint/RescueException:
   Exclude:
-    - 'lib/health_monitor/providers/**/*'
+    - 'lib/doctor_strange/providers/**/*'

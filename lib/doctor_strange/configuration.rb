@@ -1,4 +1,4 @@
-module HealthMonitor
+module DoctorStrange
   class Configuration
     PROVIDERS = %i[cache database redis resque sidekiq email].freeze
 
@@ -13,21 +13,21 @@ module HealthMonitor
     end
 
     def no_database
-      @providers.delete(HealthMonitor::Providers::Database)
+      @providers.delete(DoctorStrange::Providers::Database)
     end
 
     PROVIDERS.each do |provider_name|
       define_method provider_name do |&_block|
-        require "health_monitor/providers/#{provider_name}"
+        require "doctor_strange/providers/#{provider_name}"
 
-        add_provider("HealthMonitor::Providers::#{provider_name.capitalize}".constantize)
+        add_provider("DoctorStrange::Providers::#{provider_name.capitalize}".constantize)
       end
     end
 
     def add_custom_provider(custom_provider_class)
-      unless custom_provider_class < HealthMonitor::Providers::Base
+      unless custom_provider_class < DoctorStrange::Providers::Base
         raise ArgumentError.new 'custom provider class must implement '\
-          'HealthMonitor::Providers::Base'
+          'DoctorStrange::Providers::Base'
       end
 
       add_provider(custom_provider_class)

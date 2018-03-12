@@ -1,6 +1,6 @@
-require 'health_monitor/providers/base'
+require 'doctor_strange/providers/base'
 
-module HealthMonitor
+module DoctorStrange
   module Providers
     class DatabaseException < StandardError; end
 

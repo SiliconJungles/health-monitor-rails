@@ -1,6 +1,6 @@
-require 'health_monitor/configuration'
+require 'doctor_strange/configuration'
 
-module HealthMonitor
+module DoctorStrange
   STATUSES = {
     ok: 'OK',
     error: 'ERROR'
@@ -48,4 +48,4 @@ module HealthMonitor
   end
 end
 
-HealthMonitor.configure
+DoctorStrange.configure
