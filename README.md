@@ -5,9 +5,7 @@
 [![Dependency Status](https://gemnasium.com/lbeder/doctor-strange.png)](https://gemnasium.com/lbeder/doctor-strange)
 [![Coverage Status](https://coveralls.io/repos/lbeder/doctor-strange/badge.png)](https://coveralls.io/r/lbeder/doctor-strange)
 
-This is a Doctor Strangeing Rails mountable plug-in, which checks various services (db, cache, sidekiq, redis, etc.).
-
-Mounting this gem will add a '/check' route to your application, which can be used for Doctor Strangeing the application and its various services. The method will return an appropriate HTTP status as well as an HTML/JSON/XML response representing the state of each provider.
+Monitoring various services (db, cache, sidekiq/resque, email, redis, payment, etc).
 
 ## Examples
 
@@ -23,30 +21,29 @@ Mounting this gem will add a '/check' route to your application, which can be us
 
 ```json
 {
-   "timestamp" : "2017-03-10 17:07:52 +0200",
-   "status" : "ok",
-   "results" : [
-      {
-         "name" : "Database",
-         "message" : "",
-         "status" : "OK"
-      },
-      {
-         "status" : "OK",
-         "message" : "",
-         "name" : "Cache"
-      },
-      {
-         "status" : "OK",
-         "message" : "",
-         "name" : "Redis"
-      },
-      {
-         "status" : "OK",
-         "message" : "",
-         "name" : "Sidekiq"
-      }
-   ]
+	"results": [{
+		"name": "Database",
+		"message": "",
+		"status": "OK"
+	}, {
+		"name": "Redis",
+		"message": "",
+		"status": "OK"
+	}, {
+		"name": "Sidekiq",
+		"message": "",
+		"status": "OK"
+	}, {
+		"name": "Email",
+		"message": "",
+		"status": "OK"
+	}, {
+		"name": "Payment",
+		"message": "",
+		"status": "OK"
+	}],
+	"status": "ok",
+	"timestamp": "2018-03-12 16:36:55 +0800"
 }
 ```
 
@@ -62,27 +59,32 @@ Mounting this gem will add a '/check' route to your application, which can be us
   <results type="array">
     <result>
       <name>Database</name>
-      <message></message>
-      <status>OK</status>
-    </result>
-    <result>
-      <name>Cache</name>
-      <message></message>
+      <message />
       <status>OK</status>
     </result>
     <result>
       <name>Redis</name>
-      <message></message>
+      <message />
       <status>OK</status>
     </result>
     <result>
       <name>Sidekiq</name>
-      <message></message>
+      <message />
+      <status>OK</status>
+    </result>
+    <result>
+      <name>Email</name>
+      <message />
+      <status>OK</status>
+    </result>
+    <result>
+      <name>Payment</name>
+      <message />
       <status>OK</status>
     </result>
   </results>
   <status type="symbol">ok</status>
-  <timestamp>2017-03-10 17:08:50 +0200</timestamp>
+  <timestamp>2018-03-12 16:38:31 +0800</timestamp>
 </hash>
 ```
 
@@ -115,11 +117,14 @@ mount DoctorStrange::Engine, at: '/'
 
 ## Supported Service Providers
 The following services are currently supported:
+
 * DB
 * Cache
 * Redis
 * Sidekiq
 * Resque
+* Stripe
+* MailGun
 
 ## Configuration
 
@@ -129,7 +134,7 @@ The app name is `SiliconJungles` by default. You can change to your app name.
 
 ```ruby
 DoctorStrange.configure do |config|
-  config.app_name = "YOUR_APP_NAME" # Default is SiliconJungles
+  config.app_name = "YOUR_APP_NAME"
 end
 ```
 
@@ -141,10 +146,7 @@ DoctorStrange.configure do |config|
   config.cache
   config.redis
   config.sidekiq
-  config.email.configure do |email_config|
-    email_config.api_key = ""
-    email_config.domain = ""
-  end
+  # etc
 end
 ```
 
@@ -192,6 +194,15 @@ DoctorStrange.configure do |config|
 end
 ```
 
+```ruby
+# Payment - Stripe by default
+DoctorStrange.configure do |config|
+  config.payment.configure do |payment_config|
+    payment_config.api_key = "sk_live_xxxxx"
+  end
+end
+```
+
 The currently supported settings are:
 
 #### Sidekiq
@@ -211,6 +222,12 @@ The currently supported settings are:
 
 * `api_key`: the mail service api_key - this is a required value and will return unhealthy if not specified
 * `domain`: the mail service domain value - this is a required value and will return unhealthy if not specified.
+
+#### Payment
+
+- Default payment service for now is `Stripe`.
+
+* `api_key`: The Payment service's api_key - returns unhealthy if not specified or invalid.
 
 ### Adding a Custom Provider
 It's also possible to add custom health check providers suited for your needs (of course, it's highly appreciated and encouraged if you'd contribute useful providers to the project).
@@ -274,6 +291,8 @@ end
 ## TODO
 
 - [ ] Support another transaction Email services such as: SES, Mandrill by MailChimp, SendGird, AliCloud's DirectMail, etc.
+
+- [ ] Support another payment services such as: Adyen, Braintree, etc.
 
 ## License
 

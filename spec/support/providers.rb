@@ -50,10 +50,18 @@ module Providers
   end
 
   def stub_mailgun_failure
-    allow_any_instance_of(Mailgun::Client).to receive(:get).and_raise(Mailgun::CommunicationError)
+    allow_any_instance_of(Mailgun::Domains).to receive(:list).and_raise(Mailgun::CommunicationError)
   end
 
   def stub_mailgun
-    allow_any_instance_of(Mailgun::Client).to receive(:get).and_return(true)
+    allow_any_instance_of(Mailgun::Domains).to receive(:list).and_return(["foo.bar"])
+  end
+
+  def stub_stripe_failure
+    allow(Stripe::Customer).to receive(:list).and_raise(Stripe::AuthenticationError)
+  end
+
+  def stub_stripe
+    allow(Stripe::Customer).to receive(:list).and_return(true)
   end
 end

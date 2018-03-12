@@ -1,6 +1,6 @@
 module DoctorStrange
   class Configuration
-    PROVIDERS = %i[cache database redis resque sidekiq email].freeze
+    PROVIDERS = %i[cache database redis resque sidekiq email payment].freeze
 
     DEFAULT_APP_NAME = "SiliconJungles"
 

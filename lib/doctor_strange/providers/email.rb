@@ -38,8 +38,9 @@ module DoctorStrange
       end
 
       def check_communication!
-        mg_client = ::Mailgun::Client.new(configuration.api_key)
-        result = mg_client.get("#{configuration.domain}/events", {:event => 'delivered'})
+        mg_client = Mailgun::Client.new(configuration.api_key)
+        domainer = Mailgun::Domains.new(mg_client)
+        domainer.list.pluck("name").include? configuration.domain
       rescue ::Mailgun::CommunicationError => e
         raise "Cannot communicate to Mailgun"
       end
